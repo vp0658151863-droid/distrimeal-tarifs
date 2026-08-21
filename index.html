@@ -14,7 +14,8 @@
   body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
     background:var(--bg);color:var(--ink);-webkit-text-size-adjust:100%}
   .wrap{max-width:560px;margin:0 auto;padding:20px 16px 48px}
-  .head{text-align:center;padding:14px 0 6px}
+  .head{text-align:center;padding:6px 0}
+  .logo{width:108px;height:auto;display:block;margin:0 auto 14px}
   .badge{display:inline-block;background:#e8f4ec;color:var(--green-d);font-weight:700;
     font-size:12px;letter-spacing:.4px;padding:5px 12px;border-radius:999px;text-transform:uppercase}
   h1{font-size:23px;margin:14px 0 6px;line-height:1.25}
@@ -28,10 +29,11 @@
     border-radius:14px;padding:14px 16px;cursor:pointer;transition:border-color .15s,box-shadow .15s;user-select:none}
   label.item:hover{border-color:#c7ddce}
   label.item.on{border-color:var(--green);box-shadow:0 4px 14px rgba(31,138,76,.14)}
-  .emoji{font-size:28px;line-height:1;width:40px;text-align:center;flex:0 0 40px}
+  .icon{width:48px;height:48px;flex:0 0 48px;border-radius:50%;display:flex;align-items:center;
+    justify-content:center;font-size:26px;line-height:1;box-shadow:inset 0 0 0 1px rgba(0,0,0,.04)}
   .meta{flex:1;min-width:0}
-  .meta .name{font-weight:700;font-size:16px}
-  .meta .size{color:var(--muted);font-size:13px;margin-top:2px}
+  .meta .name{display:block;font-weight:700;font-size:16px}
+  .meta .size{display:block;color:var(--muted);font-size:13px;margin-top:4px}
   input[type=checkbox]{appearance:none;-webkit-appearance:none;width:24px;height:24px;flex:0 0 24px;
     border:2px solid #c3cec8;border-radius:7px;cursor:pointer;position:relative;background:#fff}
   input[type=checkbox]:checked{background:var(--green);border-color:var(--green)}
@@ -45,15 +47,13 @@
   .btn:disabled{background:#c9d3cd;box-shadow:none;cursor:not-allowed}
   .note{margin-top:16px;text-align:center;font-size:14px;min-height:22px}
   .note.ok{color:var(--green-d);font-weight:700}
-  .tip{margin-top:22px;background:#fff8ef;border:1px solid #ffe0b8;border-radius:12px;
-    padding:13px 15px;font-size:13.5px;color:#7a5417;line-height:1.5}
-  .tip b{color:#5f3f0e}
   .foot{text-align:center;color:#9aa8a0;font-size:12px;margin-top:26px}
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="head">
+    <img class="logo" src="logo.png" alt="Flying Food">
     <span class="badge">Tarifs Particuliers</span>
     <h1>Vos tarifs de la semaine</h1>
     <p class="sub">Cochez les tarifs qui vous intéressent, puis cliquez sur « Télécharger ». Le fichier Excel se télécharge directement, sans étape compliquée.</p>
@@ -65,16 +65,16 @@
   </div>
 
   <div class="list" id="list">
-    <label class="item"><span class="emoji">🥩</span>
+    <label class="item"><span class="icon" style="background:#ffe4e4">🥩</span>
       <span class="meta"><span class="name">Tarifs Viandes</span><span class="size">Excel · 608 Ko</span></span>
       <input type="checkbox" data-id="188GU_RMW5-UCtfUO8OqjHkEh1nJfVFyg"></label>
-    <label class="item"><span class="emoji">🧀</span>
+    <label class="item"><span class="icon" style="background:#fff2d4">🧀</span>
       <span class="meta"><span class="name">Tarifs Fromages</span><span class="size">Excel · 2,6 Mo</span></span>
       <input type="checkbox" data-id="1OXGK1yeyMRFKA4xLHe1E97rJKXS9UOjW"></label>
-    <label class="item"><span class="emoji">🥦</span>
+    <label class="item"><span class="icon" style="background:#e3f5e4">🥦</span>
       <span class="meta"><span class="name">Tarifs Fruits &amp; Légumes</span><span class="size">Excel · 8,8 Mo</span></span>
       <input type="checkbox" data-id="1EknfVO6SUSwUF3ScczW4Tt_1pr-STauV"></label>
-    <label class="item"><span class="emoji">🐟</span>
+    <label class="item"><span class="icon" style="background:#e2f0ff">🐟</span>
       <span class="meta"><span class="name">Tarifs Poissons</span><span class="size">Excel · 2,4 Mo</span></span>
       <input type="checkbox" data-id="1FuJp8qTfqqdQq_RD7vylaprOLndG00kU"></label>
   </div>
@@ -83,10 +83,6 @@
     <button class="btn" id="dl" type="button" disabled>Télécharger ma sélection</button>
   </div>
   <div class="note" id="note"></div>
-
-  <div class="tip">
-    <b>Astuce :</b> une fois le fichier ouvert dans Excel, cliquez une fois sur « Activer la modification » en haut pour pouvoir le remplir, puis renvoyez-le.
-  </div>
 
   <div class="foot">Flying Food · Distrimeal</div>
 </div>
