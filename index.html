@@ -90,7 +90,6 @@
   var note = document.getElementById('note');
   var count = document.getElementById('count');
   var selall = document.getElementById('selall');
-  var note = {};
 
   function refresh(){
     var n = 0;
@@ -102,7 +101,6 @@
     dl.disabled = n === 0;
     dl.textContent = n>1 ? ('Télécharger mes ' + n + ' fichiers') : 'Télécharger ma sélection';
     selall.textContent = (n===boxes.length) ? 'Tout désélectionner' : 'Tout sélectionner';
-    note.textContent=''; note.className='note';
   }
   boxes.forEach(function(b){ b.addEventListener('change', refresh); });
 
@@ -125,10 +123,6 @@
     var chosen = boxes.filter(function(b){return b.checked;});
     if(!chosen.length) return;
     chosen.forEach(function(b, i){ download(b.getAttribute('data-id'), i*800); });
-    note.className='note ok';
-    note.textContent = chosen.length>1
-      ? 'Vos ' + chosen.length + ' fichiers se téléchargent…'
-      : 'Votre fichier se télécharge…';
   });
 
   refresh();
