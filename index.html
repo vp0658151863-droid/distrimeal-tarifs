@@ -81,8 +81,6 @@
   <div class="cta">
     <button class="btn" id="dl" type="button" disabled>Télécharger ma sélection</button>
   </div>
-  <div class="note" id="note"></div>
-
   <div class="foot">Flying Food · Distrimeal</div>
 </div>
 
@@ -92,6 +90,7 @@
   var note = document.getElementById('note');
   var count = document.getElementById('count');
   var selall = document.getElementById('selall');
+  var note = {};
 
   function refresh(){
     var n = 0;
