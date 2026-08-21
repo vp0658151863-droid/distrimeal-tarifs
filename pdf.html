@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Vos tarifs en PDF</title>
+<style>
+  :root{
+    --blue:#0092FF; --blue-d:#0072cc; --ink:#1c2333;
+    --line:#e4e9ef; --bg:#f4f6fa; --card:#ffffff; --muted:#6a7688;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    background:var(--bg);color:var(--ink);-webkit-text-size-adjust:100%}
+  .wrap{max-width:560px;margin:0 auto;padding:20px 16px 48px}
+  .head{text-align:center;padding:14px 0 6px}
+  .badge{display:inline-block;background:#e6f3ff;color:var(--blue-d);font-weight:700;
+    font-size:12px;letter-spacing:.4px;padding:5px 12px;border-radius:999px;text-transform:uppercase}
+  h1{font-size:23px;margin:14px 0 6px;line-height:1.25}
+  .sub{color:var(--muted);font-size:15px;margin:0 auto;max-width:420px;line-height:1.5}
+  .tools{display:flex;justify-content:space-between;align-items:center;margin:22px 2px 10px}
+  .tools span{font-weight:700;font-size:14px;color:var(--muted)}
+  .selall{background:none;border:none;color:var(--blue-d);font-weight:700;font-size:14px;
+    cursor:pointer;padding:6px 4px}
+  .list{display:flex;flex-direction:column;gap:12px}
+  label.item{display:flex;align-items:center;gap:14px;background:var(--card);border:2px solid var(--line);
+    border-radius:14px;padding:14px 16px;cursor:pointer;transition:border-color .15s,box-shadow .15s;user-select:none}
+  label.item:hover{border-color:#bcd8f2}
+  label.item.on{border-color:var(--blue);box-shadow:0 4px 14px rgba(0,146,255,.16)}
+  .emoji{font-size:28px;line-height:1;width:40px;text-align:center;flex:0 0 40px}
+  .meta{flex:1;min-width:0}
+  .meta .name{font-weight:700;font-size:16px}
+  .meta .size{color:var(--muted);font-size:13px;margin-top:2px}
+  input[type=checkbox]{appearance:none;-webkit-appearance:none;width:24px;height:24px;flex:0 0 24px;
+    border:2px solid #bcc6d4;border-radius:7px;cursor:pointer;position:relative;background:#fff}
+  input[type=checkbox]:checked{background:var(--blue);border-color:var(--blue)}
+  input[type=checkbox]:checked::after{content:"";position:absolute;left:7px;top:3px;width:6px;height:11px;
+    border:solid #fff;border-width:0 3px 3px 0;transform:rotate(45deg)}
+  .cta{margin-top:24px}
+  .btn{display:block;width:100%;background:var(--blue);color:#fff;border:none;border-radius:14px;
+    padding:17px;font-size:17px;font-weight:800;cursor:pointer;box-shadow:0 8px 18px rgba(0,146,255,.4);
+    transition:transform .05s,opacity .15s}
+  .btn:active{transform:translateY(1px)}
+  .btn:disabled{background:#c9d1dc;box-shadow:none;cursor:not-allowed}
+  .note{margin-top:16px;text-align:center;font-size:14px;min-height:22px}
+  .note.ok{color:var(--blue-d);font-weight:700}
+  .tip{margin-top:22px;background:#eef6ff;border:1px solid #cfe6fb;border-radius:12px;
+    padding:13px 15px;font-size:13.5px;color:#2b5675;line-height:1.5}
+  .tip b{color:#1c4763}
+  .foot{text-align:center;color:#9aa5b5;font-size:12px;margin-top:26px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <span class="badge">Tarifs Particuliers · PDF</span>
+    <h1>Vos tarifs en PDF</h1>
+    <p class="sub">Cochez les tarifs qui vous intéressent, puis cliquez sur « Télécharger ». Le PDF s'ouvre facilement sur téléphone comme sur ordinateur.</p>
+  </div>
+
+  <div class="tools">
+    <span id="count">0 sélectionné</span>
+    <button class="selall" id="selall" type="button">Tout sélectionner</button>
+  </div>
+
+  <div class="list" id="list">
+    <label class="item"><span class="emoji">🥩</span>
+      <span class="meta"><span class="name">Tarifs Viandes</span><span class="size">PDF · 604 Ko</span></span>
+      <input type="checkbox" data-id="1no2UD8jLeK0jZbUdadMOyHZ_ch0DI685"></label>
+    <label class="item"><span class="emoji">🧀</span>
+      <span class="meta"><span class="name">Tarifs Fromages</span><span class="size">PDF · 970 Ko</span></span>
+      <input type="checkbox" data-id="1e0gepKDZzR5Y7BPlNCbnvJi0OaQDMLG8"></label>
+    <label class="item"><span class="emoji">🥦</span>
+      <span class="meta"><span class="name">Tarifs Fruits &amp; Légumes</span><span class="size">PDF · 1,7 Mo</span></span>
+      <input type="checkbox" data-id="10dzMY4oLbUv6f-FqjGrZvc4cBbvi6CPR"></label>
+    <label class="item"><span class="emoji">🐟</span>
+      <span class="meta"><span class="name">Tarifs Poissons</span><span class="size">PDF · 734 Ko</span></span>
+      <input type="checkbox" data-id="1OH9XH_Y4O0MrEi1MQSemWGHsW4h27pR_"></label>
+  </div>
+
+  <div class="cta">
+    <button class="btn" id="dl" type="button" disabled>Télécharger ma sélection</button>
+  </div>
+  <div class="note" id="note"></div>
+
+  <div class="tip">
+    <b>Astuce :</b> le PDF sert à consulter les tarifs. Sur téléphone, il s'ouvre tout seul dès le téléchargement.
+  </div>
+
+  <div class="foot">Flying Food · Distrimeal</div>
+</div>
+
+<script>
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox]'));
+  var dl = document.getElementById('dl');
+  var note = document.getElementById('note');
+  var count = document.getElementById('count');
+  var selall = document.getElementById('selall');
+
+  function refresh(){
+    var n = 0;
+    boxes.forEach(function(b){
+      b.closest('.item').classList.toggle('on', b.checked);
+      if(b.checked) n++;
+    });
+    count.textContent = n + ' sélectionné' + (n>1?'s':'');
+    dl.disabled = n === 0;
+    dl.textContent = n>1 ? ('Télécharger mes ' + n + ' PDF') : 'Télécharger ma sélection';
+    selall.textContent = (n===boxes.length) ? 'Tout désélectionner' : 'Tout sélectionner';
+    note.textContent=''; note.className='note';
+  }
+  boxes.forEach(function(b){ b.addEventListener('change', refresh); });
+
+  selall.addEventListener('click', function(){
+    var allOn = boxes.every(function(b){return b.checked;});
+    boxes.forEach(function(b){ b.checked = !allOn; });
+    refresh();
+  });
+
+  function download(id, delay){
+    setTimeout(function(){
+      var f = document.createElement('iframe');
+      f.style.display='none';
+      f.src = 'https://drive.google.com/uc?export=download&id=' + id;
+      document.body.appendChild(f);
+    }, delay);
+  }
+
+  dl.addEventListener('click', function(){
+    var chosen = boxes.filter(function(b){return b.checked;});
+    if(!chosen.length) return;
+    chosen.forEach(function(b, i){ download(b.getAttribute('data-id'), i*800); });
+    note.className='note ok';
+    note.textContent = chosen.length>1
+      ? 'Vos ' + chosen.length + ' PDF se téléchargent…'
+      : 'Votre PDF se télécharge…';
+  });
+
+  refresh();
+</script>
+</body>
+</html>
