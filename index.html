@@ -110,19 +110,25 @@
     refresh();
   });
 
-  function download(id, delay){
-    setTimeout(function(){
-      var f = document.createElement('iframe');
-      f.style.display='none';
-      f.src = 'https://drive.google.com/uc?export=download&id=' + id;
-      document.body.appendChild(f);
-    }, delay);
+  function triggerDownload(id, newTab){
+    var a = document.createElement('a');
+    a.href = 'https://drive.google.com/uc?export=download&id=' + id;
+    if(newTab){ a.target = '_blank'; a.rel = 'noopener'; }
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function(){ a.remove(); }, 300);
   }
 
   dl.addEventListener('click', function(){
     var chosen = boxes.filter(function(b){return b.checked;});
     if(!chosen.length) return;
-    chosen.forEach(function(b, i){ download(b.getAttribute('data-id'), i*800); });
+    if(chosen.length === 1){
+      triggerDownload(chosen[0].getAttribute('data-id'), false);
+    } else {
+      chosen.forEach(function(b, i){
+        setTimeout(function(){ triggerDownload(b.getAttribute('data-id'), true); }, i*1200);
+      });
+    }
   });
 
   refresh();
