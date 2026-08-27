@@ -19,11 +19,14 @@
   .logo{width:108px;height:auto;display:block;margin:0 auto 14px}
   .badge{display:inline-block;background:color-mix(in srgb,var(--accent) 14%,#fff);color:var(--accent-d);
     font-weight:700;font-size:12px;letter-spacing:.4px;padding:5px 12px;border-radius:999px;text-transform:uppercase}
-  h1{font-size:23px;margin:14px 0 6px;line-height:1.25}
-  .sub{color:var(--muted);font-size:15px;margin:0 auto;max-width:420px;line-height:1.5}
+  h1{font-size:23px;margin:14px 0 4px;line-height:1.25}
+  .sub{color:var(--muted);font-size:14.5px;margin:0 auto;max-width:430px;line-height:1.5}
   .tools{display:flex;justify-content:space-between;align-items:center;margin:22px 2px 10px}
   .tools span{font-weight:700;font-size:14px;color:var(--muted)}
   .selall{background:none;border:none;color:var(--accent-d);font-weight:700;font-size:14px;cursor:pointer;padding:6px 4px}
+  .grouphead{display:flex;align-items:center;gap:10px;margin:20px 2px 8px;font-weight:800;font-size:13px;
+    letter-spacing:.5px;text-transform:uppercase;color:var(--muted)}
+  .grouphead::after{content:"";flex:1;height:1px;background:var(--line)}
   .list{display:flex;flex-direction:column;gap:12px}
   label.item{display:flex;align-items:center;gap:14px;background:var(--card);border:2px solid var(--line);
     border-radius:14px;padding:14px 16px;cursor:pointer;transition:border-color .15s,box-shadow .15s;user-select:none}
@@ -39,7 +42,7 @@
   input[type=checkbox]:checked{background:var(--accent);border-color:var(--accent)}
   input[type=checkbox]:checked::after{content:"";position:absolute;left:7px;top:3px;width:6px;height:11px;
     border:solid #fff;border-width:0 3px 3px 0;transform:rotate(45deg)}
-  .cta{margin-top:24px}
+  .cta{margin-top:24px;position:sticky;bottom:14px}
   .btn{display:block;width:100%;background:var(--accent);color:#fff;border:none;border-radius:14px;
     padding:17px;font-size:17px;font-weight:800;cursor:pointer;box-shadow:0 8px 18px color-mix(in srgb,var(--accent) 40%,transparent);
     transition:transform .05s,opacity .15s}
@@ -55,6 +58,7 @@
     <img class="logo" src="logo.png" alt="Flying Food">
     <span class="badge" id="badge">Tarifs</span>
     <h1>Vos tarifs de la semaine</h1>
+    <p class="sub" id="sub">Cochez ce qu'il vous faut, puis téléchargez. Excel pour commander, PDF pour consulter.</p>
   </div>
 
   <div class="tools" id="tools" style="display:none">
@@ -73,8 +77,7 @@
 <script>
   // Chaque fichier a un identifiant Drive STABLE (le client met à jour le même fichier chaque semaine).
   var DATA = {
-    gms: {
-      label:'GMS',
+    gms: { label:'GMS',
       excel:[
         {n:'Tarifs Viandes', ic:'🥩', id:'1-lSRMq1N5JV4FH-Apa0ZbtP5A38vgcuS'},
         {n:'Tarifs Poissons', ic:'🐟', id:'1gSHOyHhjemgvN8g5DV669ZD1GGh9XlT6'},
@@ -86,10 +89,8 @@
         {n:'Tarifs Poissons', ic:'🐟', id:'1MKChqhCclpINWQKDLoV3dsI-XT9Hs85e'},
         {n:'Tarifs Fruits & Légumes', ic:'🥦', id:'1EVzOUI5TZ7uXVpiEfhfuFcbdnvdcHx4C'},
         {n:'Tarifs Fromages', ic:'🧀', id:'1illJcfIxNwpetaKNsN4n4VBNMO_OBT8R'}
-      ]
-    },
-    chr: {
-      label:'CHR',
+      ] },
+    chr: { label:'CHR',
       excel:[
         {n:'Tarifs Viandes', ic:'🥩', id:'1-rqP6ztaEQ2YB-C181Al1bOz8MK6n4O_'},
         {n:'Tarifs Poissons', ic:'🐟', id:'12vYsM8k7JgxeaoWLlBULcwo6Mp3YYuzo'},
@@ -101,20 +102,16 @@
         {n:'Tarifs Poissons', ic:'🐟', id:'1SrEneyIcIggdXfMYDBS01IYJZhGCmfya'},
         {n:'Tarifs Fruits & Légumes', ic:'🥦', id:'1FzvY6c9bDsWgZ7DPbzbxjbkudzR-hEfG'},
         {n:'Tarifs Fromages', ic:'🧀', id:'1Pd5mEZRekaFi8fOf0igRDiISmfIyFFUQ'}
-      ]
-    },
-    vip: {
-      label:'VIP',
+      ] },
+    vip: { label:'VIP',
       excel:[],
       pdf:[
         {n:'Tarifs Viandes', ic:'🥩', id:'1Dl85g7Gu17Ze0znEjWPpf_O0sb5pdqg7'},
         {n:'Tarifs Poissons', ic:'🐟', id:'1Bn651F4FiFh8xRlyFbfD5Wha1sPDEhBL'},
         {n:'Tarifs Fruits & Légumes', ic:'🥦', id:'1hbM3YHHvqE0tPf4pa6MmQ4gfs6uLy5HU'},
         {n:'Tarifs Fromages', ic:'🧀', id:'1nkE_teUcdgbr6U7XISqY8rOMtF9oWj_f'}
-      ]
-    },
-    part: {
-      label:'Particulier',
+      ] },
+    part: { label:'Particulier',
       excel:[
         {n:'Tarifs Viandes', ic:'🥩', id:'188GU_RMW5-UCtfUO8OqjHkEh1nJfVFyg'},
         {n:'Tarifs Poissons', ic:'🐟', id:'1FuJp8qTfqqdQq_RD7vylaprOLndG00kU'},
@@ -126,37 +123,41 @@
         {n:'Tarifs Poissons', ic:'🐟', id:'1OH9XH_Y4O0MrEi1MQSemWGHsW4h27pR_'},
         {n:'Tarifs Fruits & Légumes', ic:'🥦', id:'10dzMY4oLbUv6f-FqjGrZvc4cBbvi6CPR'},
         {n:'Tarifs Fromages', ic:'🧀', id:'1e0gepKDZzR5Y7BPlNCbnvJi0OaQDMLG8'}
-      ]
-    }
+      ] }
   };
   var ICONBG = {'🥩':'#ffe4e4','🧀':'#fff2d4','🥦':'#e3f5e4','🐟':'#e2f0ff'};
+  var FLBL = {excel:'Excel', pdf:'PDF'};
 
   function qp(k){ return new URLSearchParams(location.search).get(k); }
   var b = (qp('b')||'').toLowerCase();
-  var f = (qp('f')||'pdf').toLowerCase();
-  if(f!=='excel' && f!=='pdf') f='pdf';
-  document.body.setAttribute('data-f', f);
+  var fParam = (qp('f')||'').toLowerCase();
+  var formats = (fParam==='excel'||fParam==='pdf') ? [fParam] : ['excel','pdf'];
+  document.body.setAttribute('data-f', formats.length===1 ? formats[0] : 'both');
 
   var conf = DATA[b];
-  var files = conf ? (conf[f]||[]) : [];
-  var fLabel = f==='excel' ? 'Excel' : 'PDF';
-  document.getElementById('badge').textContent = conf ? ('Tarifs '+conf.label+' · '+fLabel) : 'Tarifs';
+  document.getElementById('badge').textContent = conf ? ('Tarifs '+conf.label+(formats.length===1?(' · '+FLBL[formats[0]]):'')) : 'Tarifs';
+  if(formats.length===1){ document.getElementById('sub').textContent = 'Cochez ce qu’il vous faut, puis téléchargez.'; }
 
   var list = document.getElementById('list');
+  var showHead = formats.length>1;
+  var total = 0;
   if(!conf){
     list.innerHTML = '<div class="empty">Lien invalide. Contactez-nous et nous vous renvoyons vos tarifs.</div>';
-  } else if(!files.length){
-    list.innerHTML = '<div class="empty">Ces tarifs ne sont pas encore disponibles ici.<br>Écrivez-nous et on vous les envoie tout de suite.</div>';
   } else {
-    files.forEach(function(x){
-      var lab=document.createElement('label'); lab.className='item';
-      lab.innerHTML='<span class="icon" style="background:'+(ICONBG[x.ic]||'#eef')+'">'+x.ic+'</span>'+
-        '<span class="meta"><span class="name">'+x.n+'</span><span class="size">'+fLabel+'</span></span>'+
-        '<input type="checkbox" data-id="'+x.id+'">';
-      list.appendChild(lab);
+    formats.forEach(function(fm){
+      var files = conf[fm]||[];
+      if(!files.length){ return; }
+      if(showHead){ var h=document.createElement('div'); h.className='grouphead'; h.textContent='Version '+FLBL[fm]; list.appendChild(h); }
+      files.forEach(function(x){
+        var lab=document.createElement('label'); lab.className='item';
+        lab.innerHTML='<span class="icon" style="background:'+(ICONBG[x.ic]||'#eef')+'">'+x.ic+'</span>'+
+          '<span class="meta"><span class="name">'+x.n+'</span><span class="size">'+FLBL[fm]+'</span></span>'+
+          '<input type="checkbox" data-id="'+x.id+'">';
+        list.appendChild(lab); total++;
+      });
     });
-    document.getElementById('tools').style.display='';
-    document.getElementById('cta').style.display='';
+    if(total===0){ list.innerHTML = '<div class="empty">Ces tarifs ne sont pas encore disponibles ici.<br>Écrivez-nous et on vous les envoie tout de suite.</div>'; }
+    else { document.getElementById('tools').style.display=''; document.getElementById('cta').style.display=''; }
   }
 
   var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox]'));
