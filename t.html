@@ -138,6 +138,7 @@
 
   function qp(k){ return new URLSearchParams(location.search).get(k); }
   var b = (qp('b')||'').toLowerCase();
+  if (b === 'particulier' || b === 'particuliers') b = 'part';  // alias: PRICING_SCALE = PARTICULIER
   var fParam = (qp('f')||'').toLowerCase();
   var formats = (fParam==='excel'||fParam==='pdf') ? [fParam] : ['excel','pdf'];
   document.body.setAttribute('data-f', formats.length===1 ? formats[0] : 'both');
