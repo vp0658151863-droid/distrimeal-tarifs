@@ -143,7 +143,7 @@
   var formats = (fParam==='excel'||fParam==='pdf') ? [fParam] : ['excel','pdf'];
   document.body.setAttribute('data-f', formats.length===1 ? formats[0] : 'both');
 
-  var conf = DATA[b];
+  var conf = DATA[b] || DATA['part'];  // garde-fou: segment vide/inconnu -> page valide
   document.getElementById('badge').textContent = conf ? ('Tarifs '+conf.label+(formats.length===1?(' · '+FLBL[formats[0]]):'')) : 'Tarifs';
   if(formats.length===1){ document.getElementById('sub').textContent = 'Cochez ce qu’il vous faut, puis téléchargez.'; }
 
